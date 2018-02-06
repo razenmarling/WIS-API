@@ -8,11 +8,12 @@
 
 from flask import Flask
 from flask_restful import Api
+from .tools import Tools
+import types
 
 app = Flask(__name__, static_url_path='')
 api = Api(app)
 app.config.from_object('config')
+api.route = types.MethodType(Tools.api_route, api)
 
-@app.route('/')
-def index():
-	return 'sample'
+from .controllers.admincontroller import AdminController
