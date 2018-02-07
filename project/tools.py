@@ -6,14 +6,21 @@
    Description for this file: this file will hold all generic functions
 """
 
-class Tools(object):
-	"""Tools class."""
+import hashlib
 
-	@staticmethod
-	def api_route(self, *args, **kwargs):
-		# decorator for routing resource object
-	    def wrapper(cls):
-	        self.add_resource(cls, *args, **kwargs)
-	        return cls
-	    return wrapper
+class Tools(object):
+  """Tools class."""
+
+  @staticmethod
+  def api_route(self, *args, **kwargs):
+    # decorator for routing resource object
+    def wrapper(cls):
+      self.add_resource(cls, *args, **kwargs)
+      return cls
+    return wrapper
+
+  @staticmethod
+  def sha1(self, string):
+    # Return a SHA1 hash of a given string
+    return hashlib.sha1(string).hexdigest()
 
