@@ -9,9 +9,15 @@
 from flask_restful import Resource
 from project import api
 from .authcontroller import AuthController
+from project.tools import Tools
 
 @api.route('/admin')
-class AdminController(Resource):
+class AdminController(Resource, AuthController):
+  def __init__(self):
+    AuthController.__init__(self, 'private')
 
-	def get(self):
-		return {'data': 'sample'}
+  def get(self):
+    if self.errorcodes:
+      return Tools().response400(self.errorcodes, self.timestamp)
+
+    return {'data': 'sample'}

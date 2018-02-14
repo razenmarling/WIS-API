@@ -16,4 +16,6 @@ api = Api(app)
 app.config.from_object('config')
 api.route = types.MethodType(Tools.api_route, api)
 
+from .controllers.accountcontroller import AdminAccountController
+from .controllers.accountcontroller import UserAccountController
 from .controllers.admincontroller import AdminController

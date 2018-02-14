@@ -12,9 +12,9 @@ SALT = '$2b$12$VjmN7ZenOnbb2ZWeiLhNFO'
 # connection string
 # mysql+pymysql://{user}:{password}@{server}/{db}"
 CONNSTR = "mysql+pymysql://{user}:{password}@{server}/{db}".format(
-	user='root',
-	password='razen12345',
-	server='127.0.0.1:3306',
+	user='razenrtyu',
+	password='p@ssw0rd',
+	server='razenrtyu.mysql.pythonanywhere-services.com',
 	db='rocka'
 )
 
