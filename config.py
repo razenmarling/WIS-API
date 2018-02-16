@@ -9,13 +9,29 @@
 # use for encryption and decryption
 SALT = '$2b$12$VjmN7ZenOnbb2ZWeiLhNFO'
 
+# set dialect to use for connection string
+DB_TYPE = 'mysql'
+
+# DB name to use. if this db is not found
+# it will be created automatically
+DB = 'rocka'
+
+# Sqlalchemy dbapi lists
+DBAPI = {
+  'mysql': 'mysql+pymysql',
+  'postgre': 'postgresql+psycopg2',
+  'mssql': 'mssql+pymssql',
+  'oracle': 'oracle'
+}
+
 # connection string
 # mysql+pymysql://{user}:{password}@{server}/{db}"
-CONNSTR = "mysql+pymysql://{user}:{password}@{server}/{db}".format(
-	user='razenrtyu',
+CONNSTR = "{dbapi}://{user}:{password}@{server}/{db}".format(
+  dbapi = DBAPI[DB_TYPE],
+	user='root',
 	password='p@ssw0rd',
-	server='razenrtyu.mysql.pythonanywhere-services.com',
-	db='rocka'
+	server='127.0.0.1:4000',
+	db = DB
 )
 
 # IP and port where the app will listen
