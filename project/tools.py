@@ -8,6 +8,9 @@
 
 import hashlib
 import time
+import logging
+import os
+
 from sqlalchemy import inspect
 from sqlalchemy_utils.functions import database_exists, create_database
 from .tables import Base
@@ -128,3 +131,25 @@ class Tools(object):
             cons = add_commands[dialect][1].format(fk_col=col_name, table_ref=c_foreign_key[0][0],
                                                    col_ref=c_foreign_key[0][1])
           engine.execute(stsql + ' ' + cons)
+
+  @staticmethod
+  def initialize_logger(path):
+    """Logger"""
+    if not os.path.exists(path):
+        with open(path, 'w'): pass
+
+    logger = logging.getLogger('apilogs')
+    hdlr = logging.FileHandler(path)
+    formatter = logging.Formatter(fmt='%(asctime)s || %(levelname)s || ==> %(message)s',
+                                  datefmt='%m/%d/%Y %I:%M:%S%p')
+    hdlr.setFormatter(formatter)
+    logger.addHandler(hdlr)
+    logger.setLevel(logging.DEBUG)
+    Tools.logger = logger
+
+  @staticmethod
+  def log(msg, err=False):
+    if err:
+      Tools.logger.error(str(msg))
+    else:
+      Tools.logger.info(str(msg))

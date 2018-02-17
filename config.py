@@ -47,3 +47,6 @@ CLIENTS = {
 	'ios': '35561121-3713-4e63-94c4-6f451660128b',
 	'android': '4b0869d4-fa5d-4c7f-899c-5427b5c5e9dd'
 }
+
+# logs path
+LOG_PATH = '/razen/api_logs.log'

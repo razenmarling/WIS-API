@@ -7,6 +7,7 @@
 """
 
 from flask_restful import Resource
+from flask_restful_swagger import swagger
 from project import api
 from .authcontroller import AuthController
 from project.tools import Tools
