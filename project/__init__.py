@@ -9,12 +9,11 @@
 from sqlalchemy import create_engine
 from flask import Flask
 from flask_restful import Api
-from flask_restful_swagger import swagger
 from .tools import Tools
 import types
 
 app = Flask(__name__, static_url_path='')
-api = swagger.docs(Api(app), apiVersion='0.1')
+api =Api(app)
 app.config.from_object('config')
 api.route = types.MethodType(Tools.api_route, api)
 

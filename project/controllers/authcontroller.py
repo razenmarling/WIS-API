@@ -30,11 +30,11 @@ class AuthController(object):
     self.errorcodes = []
     self.parser = reqparse.RequestParser()
     # set required headers
-    self.__required_headers = ['timestamp', 'client',
-                               'authorization']
+    self.__required_headers = [('timestamp', 0), ('client', ''),
+                               ('authorization', '')]
     # add arguments to parser
     for headers in self.__required_headers:
-      self.parser.add_argument(headers, location='headers', default='')
+      self.parser.add_argument(headers[0], location='headers', default=headers[1])
     # get all arguments from headers and store to self.__args
     self.__args = self.parser.parse_args()
     # get timestamp
@@ -60,7 +60,7 @@ class AuthController(object):
        
        Authentication that don't requires a credentials.
     """
-    pub_authorization = Tools.sha1(self.__client + self.__client_token + self.__args['timestamp'])
+    pub_authorization = Tools.sha1(self.__client + self.__client_token + str(self.__args['timestamp']))
     if self.__args['authorization'] != pub_authorization:
       self.errorcodes.append('AU0001')
     else:
@@ -72,7 +72,7 @@ class AuthController(object):
        
        Authentication that requires credentials.
     """
-    priv_authorization = Tools.sha1(self.__client + self.__client_token + self.__args['timestamp'])
+    priv_authorization = Tools.sha1(self.__client + self.__client_token + str(self.__args['timestamp']))
     if self.__args['authorization'] != priv_authorization:
       self.errorcodes.append('AU0001')
     else:
@@ -83,6 +83,8 @@ class AuthController(object):
     """Connect to database."""
     try:
       self.engine = create_engine(app.config['CONNSTR'])
-      self.session = sessionmaker(bind=self.engine)
+      self.engine.connect()
+      self.session = sessionmaker(bind=self.engine)()
     except Exception as exc:
+      Tools.log(exc, err=True)
       self.errorcodes.append('DB0001')
