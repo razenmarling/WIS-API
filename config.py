@@ -48,5 +48,6 @@ CLIENTS = {
 	'android': '4b0869d4-fa5d-4c7f-899c-5427b5c5e9dd'
 }
 
-# logs path
-LOG_PATH = '/razen/api_logs.log'
+# logs path - if this is not set it will
+# go to default path logs/api_logs.log
+LOG_PATH = ''

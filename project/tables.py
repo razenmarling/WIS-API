@@ -50,6 +50,7 @@ class T_admin(GenericBase, Base):
   username = Column(String(50))
   password = Column(String(100))
   token = Column(String(100))
+  active = Column(Boolean)
 
 
 class T_user(GenericBase, Base):
@@ -61,3 +62,4 @@ class T_user(GenericBase, Base):
   username = Column(String(50))
   password = Column(String(100))
   token = Column(String(100))
+  active = Column(Boolean)

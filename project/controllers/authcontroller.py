@@ -20,7 +20,7 @@ class AuthController(object):
   def __init__(self, authtype):
     """Get Requried headers and initialize variables.
       
-       Global Parameters:
+       Global Variables:
        - self.errorcodes
        - self.parser
        - self.engine
@@ -41,7 +41,7 @@ class AuthController(object):
     self.timestamp = int(self.__args.get('timestamp', 0))
     # check for required headers
     for index, headers in enumerate(self.__required_headers):
-      if not self.__args.get(headers, None):
+      if not self.__args.get(headers[0], None):
         self.errorcodes.append('MH000{}'.format(index + 1))
     # get client token
     self.__client = self.__args.get('client', '')

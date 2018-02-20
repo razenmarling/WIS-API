@@ -44,10 +44,13 @@ class Tools(object):
     return retval, status_code
   
   @staticmethod
-  def response200(data):
+  def response200(data=None, timestamp=0, s_c=None):
     """Success response."""
-    retval = {}
-    status_code = 200
+    retval = data if data else {}
+    status_code = s_c if s_c else 200
+    retval['status'] = 'success'
+    res_time = timestamp - time.time()
+    retval['responsetime'] = 0.001 if res_time < 0.001 else res_time
     
     return retval, status_code
   
@@ -135,6 +138,7 @@ class Tools(object):
   @staticmethod
   def initialize_logger(path):
     """Logger"""
+    path = path if path else 'logs/api_logs.log'
     if not os.path.exists(path):
         with open(path, 'w'): pass
 
