@@ -38,6 +38,8 @@ class AccountModel(object):
         err.append('ACC00004')
       else:
         self.__session.commit()
+    
+    Tools.close_all_connection(self.__engine, self.__session)
 
     return ret_obj, err
   
@@ -119,6 +121,8 @@ class AccountModel(object):
       else:
         err.append('LOG00002')
     
+    Tools.close_all_connection(self.__engine, self.__session)
+    
     return ret_obj, err
   
   def get_account(self, data):
@@ -152,5 +156,7 @@ class AccountModel(object):
       for d in result:
         r = d.toJSON(*ret_columns)
         ret_obj.append(r)
+    
+    Tools.close_all_connection(self.__engine, self.__session)
     
     return ret_obj, err

@@ -167,3 +167,8 @@ class Tools(object):
       offset_count = limit * (page - 1)
     
     return offset_count
+  
+  @staticmethod
+  def close_all_connection(engine, session):
+    engine.dispose()
+    session.close_all()

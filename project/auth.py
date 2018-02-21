@@ -8,6 +8,7 @@
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
+from sqlalchemy.pool import NullPool
 import time
 
 from flask_restful import reqparse
@@ -127,7 +128,7 @@ class Auth(object):
   def __connect_to_database(self):
     """Connect to database."""
     try:
-      self.engine = create_engine(app.config['CONNSTR'])
+      self.engine = create_engine(app.config['CONNSTR'], poolclass=NullPool)
       self.engine.connect()
       self.session = sessionmaker(bind=self.engine)()
     except Exception as exc:
