@@ -22,11 +22,11 @@ class GenericBase(object):
   def as_dict(self):
       return ({c.name: getattr(self, c.name) for c in self.__table__.columns})
 
-  def toJSONExcept(self,*except_fields):
+  def toJSON(self,*ret_fields):
       retval = {}
       tabledic = self.as_dict()
       for k in tabledic:
-          if k in except_fields:
+          if k not in ret_fields:
               continue
 
           if type(tabledic[k]) in [datetime.datetime,datetime.date]:
@@ -41,25 +41,16 @@ class GenericBase(object):
       return retval
 
 
-class T_admin(GenericBase, Base):
+class T_account(GenericBase, Base):
   """Admin Table."""
 
-  __tablename__ = 'admin'
+  __tablename__ = 'accounts'
   
   id = Column(Integer,primary_key=True)
   username = Column(String(50))
   password = Column(String(100))
   token = Column(String(100))
+  acc_type = Column(Integer)
+  created_by = Column(Integer)
   active = Column(Boolean)
-
-
-class T_user(GenericBase, Base):
-  """User Table."""
-
-  __tablename__ = 'user'
-  
-  id = Column(Integer,primary_key=True)
-  username = Column(String(50))
-  password = Column(String(100))
-  token = Column(String(100))
-  active = Column(Boolean)
+  datecreated = Column(DateTime, default=datetime.datetime.now())

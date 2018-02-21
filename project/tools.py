@@ -46,7 +46,8 @@ class Tools(object):
   @staticmethod
   def response200(data=None, timestamp=0, s_c=None):
     """Success response."""
-    retval = data if data else {}
+    retval = {}
+    retval['data'] = data if data else {}
     status_code = s_c if s_c else 200
     retval['status'] = 'success'
     res_time = timestamp - time.time()
@@ -157,3 +158,12 @@ class Tools(object):
       Tools.logger.error(str(msg))
     else:
       Tools.logger.info(str(msg))
+
+  @staticmethod
+  def pagination(limit, page):
+    if int(page) == 1:
+      offset_count = 0
+    elif int(page) > 1:
+      offset_count = limit * (page - 1)
+    
+    return offset_count

@@ -41,7 +41,6 @@ except Exception as exc:
 
 
 # ============================IMPORT RESOURCES==============================
-from .controllers.accountcontroller import AdminAccountController
-from .controllers.accountcontroller import UserAccountController
-from .controllers.admincontroller import AdminController
+from .controllers.accountcontroller import AccountController
+from .controllers.accountcontroller import AccountControllerLogin
 # ===============================END========================================
